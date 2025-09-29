@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 
@@ -9,13 +9,10 @@ import AdminHome from "./pages/AdminHome";
 import ManageBooks from "./pages/ManageBooks";
 import Requests from "./pages/Requests";
 import Reports from "./pages/Reports";
-
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import ForgetPassword from "./pages/ForgetPassword";
 import AddAdmin from "./pages/AddAdmin";
-
-// ✅ Newly added pages
 import MyBooks from "./pages/MyBooks";
 import BookReader from "./pages/BookReader";
 
@@ -23,8 +20,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   return (
-    <BrowserRouter>
-      {/* ✅ Pass handleLogout to Navbar */}
+    <HashRouter>
       <Navbar
         currentUser={currentUser}
         handleLogout={() => setCurrentUser(null)}
@@ -32,7 +28,6 @@ function App() {
 
       <div className="container mx-auto mt-10">
         <Routes>
-          {/* ✅ Default route: If logged in -> go to home, else show login */}
           <Route
             path="/"
             element={
@@ -43,17 +38,11 @@ function App() {
               )
             }
           />
-
-          {/* ✅ User register route */}
           <Route path="/register" element={<UserRegister />} />
-
-          {/* ✅ Admin login route */}
           <Route
             path="/admin"
             element={<AdminLogin setCurrentUser={setCurrentUser} />}
           />
-
-          {/* ✅ Admin Dashboard & Pages */}
           <Route
             path="/admin/home"
             element={
@@ -84,8 +73,6 @@ function App() {
               currentUser ? <Reports /> : <Navigate to="/admin" replace />
             }
           />
-
-          {/* ✅ Protected user routes */}
           <Route
             path="/home"
             element={
@@ -96,7 +83,6 @@ function App() {
               )
             }
           />
-
           <Route
             path="/profile"
             element={
@@ -110,8 +96,6 @@ function App() {
               )
             }
           />
-
-          {/* ✅ My Books Page */}
           <Route
             path="/my-books"
             element={
@@ -122,18 +106,14 @@ function App() {
               )
             }
           />
-
-          {/* ✅ Book Reader Page */}
           <Route
             path="/read/:bookId"
             element={currentUser ? <BookReader /> : <Navigate to="/" replace />}
           />
-
-          {/* ✅ Forget Password Page */}
           <Route path="/forget-password" element={<ForgetPassword />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

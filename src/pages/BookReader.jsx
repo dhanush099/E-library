@@ -1,4 +1,3 @@
-// src/pages/BookReader.jsx
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,7 +11,6 @@ export default function BookReader() {
 
   useEffect(() => {
     fetchBook();
-    // Disable right-click
     const disableRightClick = (e) => e.preventDefault();
     document.addEventListener("contextmenu", disableRightClick);
     return () => document.removeEventListener("contextmenu", disableRightClick);
@@ -29,12 +27,11 @@ export default function BookReader() {
 
   if (!book) return <p className="text-center mt-10">Loading book...</p>;
 
-  // ✅ File path in public folder
-  const pdfUrl = `/books/${book.filePath}`;
+  // ✅ Use BASE_URL so it works on GitHub Pages
+  const pdfUrl = `${import.meta.env.BASE_URL}books/${book.filePath}`;
 
   return (
     <div className="h-screen bg-gray-100 flex flex-col">
-      {/* Top Bar */}
       <div className="bg-white shadow p-3 flex items-center justify-between">
         <h2 className="font-semibold text-lg">{book.name}</h2>
         <button
@@ -45,7 +42,6 @@ export default function BookReader() {
         </button>
       </div>
 
-      {/* PDF Reader */}
       <div className="flex-1">
         <iframe
           src={`${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
