@@ -241,22 +241,35 @@ export default function MyBooks({ currentUser }) {
                 key={req.id}
                 className="bg-white p-5 rounded-2xl shadow-md border border-gray-100 relative"
               >
+                {/* Category Badge */}
                 {book?.category && (
                   <span className="absolute top-3 right-3 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
                     {book.category}
                   </span>
                 )}
 
+                {/* Book Cover */}
+                {book?.imageUrl && (
+                  <img
+                    src={book.imageUrl}
+                    alt={book.name}
+                    className="w-full h-40 object-contain rounded-lg mb-4 bg-gray-100"
+                  />
+                )}
+
+                {/* Book Name & Author */}
                 <h3 className="text-lg font-semibold">{req.bookName}</h3>
                 {book?.author && (
                   <p className="text-sm text-gray-600 mt-1">By {book.author}</p>
                 )}
 
+                {/* Due Date */}
                 <p className="text-sm text-gray-500 mt-3">
                   Due:{" "}
                   {req.dueDate ? new Date(req.dueDate).toLocaleString() : "—"}
                 </p>
 
+                {/* Days Left Badge */}
                 <div className="mt-3">
                   <span
                     className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${badge}`}
@@ -267,6 +280,7 @@ export default function MyBooks({ currentUser }) {
                   </span>
                 </div>
 
+                {/* Action Buttons */}
                 <div className="mt-5 flex gap-2 flex-wrap">
                   <button
                     onClick={() => navigate(`/read/${req.bookId}`)}

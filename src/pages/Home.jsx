@@ -222,7 +222,16 @@ export default function Home({ currentUser }) {
                   </span>
                 )}
 
-                <h3 className="text-xl font-bold text-gray-800">{b.name}</h3>
+                {/* Book Cover */}
+                {b.imageUrl && (
+                  <img
+                    src={b.imageUrl}
+                    alt={b.name}
+                    className="w-full h-40 object-contain rounded-lg mb-4 bg-gray-100"
+                  />
+                )}
+
+                <h3 className="text-lg font-bold text-gray-800">{b.name}</h3>
                 <p className="text-gray-600 text-sm mt-1">👤 {b.author}</p>
 
                 {b.about && (

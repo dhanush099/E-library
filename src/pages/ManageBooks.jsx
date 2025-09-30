@@ -12,6 +12,7 @@ function ManageBooks() {
     about: "",
     category: "",
     filePath: "",
+    imageUrl: "", //  new optional field
   });
 
   const [search, setSearch] = useState("");
@@ -46,6 +47,7 @@ function ManageBooks() {
         about: "",
         category: "",
         filePath: "",
+        imageUrl: "",
       });
       fetchBooks();
     } catch (error) {
@@ -150,6 +152,17 @@ function ManageBooks() {
             folder.
           </p>
 
+          {/* 🆕 Image URL Input */}
+          <input
+            type="text"
+            placeholder="Book Cover Image URL (optional)"
+            value={newBook.imageUrl}
+            onChange={(e) =>
+              setNewBook({ ...newBook, imageUrl: e.target.value })
+            }
+            className="border p-3 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition"
+          />
+
           <button
             type="submit"
             className="bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 shadow-md transition transform hover:scale-[1.02]"
@@ -194,8 +207,17 @@ function ManageBooks() {
             {filteredBooks.map((book) => (
               <div
                 key={book.id}
-                className="bg-white shadow-md rounded-2xl p-5 border border-gray-200 hover:shadow-xl transition"
+                className="bg-white shadow-md rounded-2xl p-5 border border-gray-200 hover:shadow-xl transition flex flex-col"
               >
+                {/*  Show book image if available */}
+                {book.imageUrl && (
+                  <img
+                    src={book.imageUrl}
+                    alt={book.name}
+                    className="w-full h-40 object-contain rounded-xl mb-4 shadow-sm bg-gray-100"
+                  />
+                )}
+
                 <div className="flex justify-between items-center">
                   <h3 className="text-xl font-semibold text-gray-800">
                     {book.name}
@@ -218,7 +240,7 @@ function ManageBooks() {
                 <div className="flex justify-between items-center mt-5">
                   {book.filePath ? (
                     <a
-                      href={`${window.location.origin}/books/${book.filePath}`}
+                      href={`${import.meta.env.BASE_URL}books/${book.filePath}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition shadow-sm"
